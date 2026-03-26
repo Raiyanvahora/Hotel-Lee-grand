@@ -186,4 +186,78 @@
 
     window.addEventListener('scroll', highlightNav, { passive: true });
 
+    // --- Mobile Slider Dots ---
+    function initSliderDots(sliderSelector, dotContainerId, itemSelector) {
+        var slider = document.querySelector(sliderSelector);
+        if (!slider) return;
+
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
+
+        // Create dot container
+        var dotsContainer = document.createElement('div');
+        dotsContainer.className = 'slider-dots';
+        dotsContainer.id = dotContainerId;
+        slider.parentNode.insertBefore(dotsContainer, slider.nextSibling);
+
+        function buildDots() {
+            dotsContainer.innerHTML = '';
+            if (!isMobile()) {
+                dotsContainer.style.display = 'none';
+                return;
+            }
+            dotsContainer.style.display = 'flex';
+
+            var items = slider.querySelectorAll(itemSelector);
+            var totalDots = Math.min(items.length, 8);
+            for (var i = 0; i < totalDots; i++) {
+                var dot = document.createElement('button');
+                dot.className = 'slider-dot';
+                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+                dot.dataset.index = i;
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', function () {
+                    var idx = parseInt(this.dataset.index);
+                    var target = items[idx];
+                    if (target) {
+                        slider.scrollTo({ left: target.offsetLeft - slider.offsetLeft, behavior: 'smooth' });
+                    }
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots() {
+            if (!isMobile()) return;
+            var items = slider.querySelectorAll(itemSelector);
+            var dots = dotsContainer.querySelectorAll('.slider-dot');
+            if (!dots.length) return;
+
+            var scrollLeft = slider.scrollLeft;
+            var activeIndex = 0;
+            var minDist = Infinity;
+
+            for (var i = 0; i < items.length && i < dots.length; i++) {
+                var dist = Math.abs(items[i].offsetLeft - slider.offsetLeft - scrollLeft);
+                if (dist < minDist) {
+                    minDist = dist;
+                    activeIndex = i;
+                }
+            }
+
+            dots.forEach(function (d, i) {
+                d.classList.toggle('active', i === activeIndex);
+            });
+        }
+
+        slider.addEventListener('scroll', updateDots, { passive: true });
+        window.addEventListener('resize', buildDots);
+        buildDots();
+    }
+
+    // Initialize dots for each slider section
+    initSliderDots('.reviews-grid', 'reviews-dots', '.review-card');
+    initSliderDots('.amenities-grid', 'amenities-dots', '.amenity-item');
+
 })();
