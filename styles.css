@@ -563,6 +563,70 @@ h1, h2, h3, h4 {
     background: rgba(255,255,255,0.1);
 }
 
+/* --- Rate Table --- */
+.rate-table-wrap {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin: 0 auto 24px;
+    max-width: 860px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.rate-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-bg-card);
+}
+
+.rate-table thead th {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 16px 20px;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-gold);
+}
+
+.rate-table thead th:first-child {
+    border-radius: 0;
+}
+
+.rate-table tbody td {
+    padding: 15px 20px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text);
+    border-bottom: 1px solid #f0ede6;
+}
+
+.rate-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.rate-table tbody tr:hover {
+    background: #fdfbf6;
+}
+
+.rate-table .rt-room {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.rate-table .rt-price {
+    color: var(--color-gold);
+    font-weight: 700;
+}
+
+.rate-note {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+}
+
 @media (max-width: 768px) {
     .pricing-strip-items {
         gap: 8px;
@@ -576,6 +640,22 @@ h1, h2, h3, h4 {
     }
     .ps-price {
         font-size: 1.6rem;
+    }
+
+    .rate-table-wrap {
+        border-radius: 12px;
+        margin: 0 -8px 20px;
+        overflow-x: auto;
+    }
+    .rate-table thead th {
+        padding: 12px 12px;
+        font-size: 0.7rem;
+        white-space: nowrap;
+    }
+    .rate-table tbody td {
+        padding: 11px 12px;
+        font-size: 0.82rem;
+        white-space: nowrap;
     }
 }
 
