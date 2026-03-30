@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /hotel phots/
 
-Sitemap: https://www.hotelleegrand.com/sitemap.xml
+Sitemap: https://hotelleegrandanand.netlify.app/sitemap.xml
